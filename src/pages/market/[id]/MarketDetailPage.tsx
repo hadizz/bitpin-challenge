@@ -40,7 +40,9 @@ export default function MarketDetailPage() {
         field: 'time',
         headerName: 'Time',
         flex: 1,
-        valueFormatter: (params) => new Date(params.value * 1000).toLocaleTimeString(),
+        valueGetter: (value) => {
+          return new Date(value * 1000).toLocaleTimeString();
+        },
       },
       {
         field: 'price',
