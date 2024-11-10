@@ -1,0 +1,11 @@
+node_modules
+dist
+build
+vite.config.ts
+coverage
+.env
+.env.*
+*.log
+*.lock
+public
+.DS_Store
