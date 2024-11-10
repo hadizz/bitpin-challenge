@@ -8,7 +8,7 @@ import { Order, Trade } from '../../../models/market.dto';
 export default function MarketDetailPage() {
   const { marketId } = useParams();
   const [tab, setTab] = useState(0);
-  const [percentage, setPercentage] = useState(100);
+  //   const [percentage, setPercentage] = useState(100);
   const { buyOrders, sellOrders, trades } = useMarketDetail(marketId!);
   console.log({ trades });
 
@@ -61,8 +61,8 @@ export default function MarketDetailPage() {
 
   const renderDataWithSummary = <T extends Order | Trade>(
     list: T[] | undefined,
-    columns: GridColDef<T>[],
-    showSummary: boolean = false
+    columns: GridColDef<T>[]
+    // showSummary: boolean = false
   ) => {
     console.log({ list });
 
@@ -178,14 +178,14 @@ export default function MarketDetailPage() {
           buyOrders.isLoading ? (
             <Skeleton />
           ) : (
-            renderDataWithSummary(buyOrders.data?.orders, orderColumns, true)
+            renderDataWithSummary(buyOrders.data?.orders, orderColumns)
           )
         ) : null}
         {tab === 1 ? (
           sellOrders.isLoading ? (
             <Skeleton />
           ) : (
-            renderDataWithSummary(sellOrders.data?.orders, orderColumns, true)
+            renderDataWithSummary(sellOrders.data?.orders, orderColumns)
           )
         ) : null}
         {tab === 2 ? (
