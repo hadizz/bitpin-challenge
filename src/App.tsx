@@ -1,8 +1,8 @@
-import { QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import MarketListPage from "./pages/market/MarketListPage";
-import MarketDetailPage from "./pages/market/[id]/MarketDetailPage";
-import { queryClient } from "./providers/react-query";
+import { QueryClientProvider } from '@tanstack/react-query';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import MarketListPage from './pages/market/MarketListPage';
+import MarketDetailPage from './pages/market/[id]/MarketDetailPage';
+import { queryClient } from './providers/react-query';
 
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
         </Routes>
       </BrowserRouter>
     </QueryClientProvider>
-  )
+  );
 }
 
 export default App;

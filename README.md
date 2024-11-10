@@ -1,4 +1,3 @@
-
 # Bitpin Challenge / BitTrade
 
 steps of task implementataion:
@@ -14,11 +13,13 @@ Bundle Size Comparison
 - Emotion dependencies: ~15KB
 
 `Ant Design (antd)`
+
 - Core package: ~600KB (minified + gzipped)
 - Icons package: ~200KB
 - Moment.js dependency (optional): ~230KB
 
 Features:
+
 - `MUI` has better table component rather than antd.
 - reach and various features for the future developing.
 - easy implemntaion and better docs with biolerpaltes.
@@ -30,6 +31,7 @@ Features:
 > list need to update each 3 seconds
 
 `react-query`
+
 - Automatic periodic refetching (3-second requirement)
 - Built-in loading and error states
 - Automatic caching of market data
@@ -38,3 +40,10 @@ Features:
 - Better performance with automatic background updates
 
 -> `react-query` wins!
+
+todo list:
+
+- [] detail page summary
+- [] change service from ir to org if network error
+- [] dark theme
+- [] swipe for changing tabs

@@ -1,7 +1,7 @@
-import { DataGridProps, DataGrid as MUIDataGrid } from "@mui/x-data-grid";
+import { DataGridProps, DataGrid as MUIDataGrid } from '@mui/x-data-grid';
 
 const DataGrid = (props: DataGridProps) => {
-    return <MUIDataGrid {...props} />
-}
+  return <MUIDataGrid {...props} />;
+};
 
-export default DataGrid;   
+export default DataGrid;

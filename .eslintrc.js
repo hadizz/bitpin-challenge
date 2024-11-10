@@ -10,6 +10,7 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
     'plugin:@tanstack/eslint-plugin-query/recommended',
+    'plugin:prettier/recommended',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -20,11 +21,7 @@ module.exports = {
       jsx: true,
     },
   },
-  plugins: [
-    'react',
-    '@typescript-eslint',
-    '@tanstack/query',
-  ],
+  plugins: ['react', '@typescript-eslint', '@tanstack/query', 'prettier'],
   settings: {
     react: {
       version: 'detect',
@@ -33,5 +30,6 @@ module.exports = {
   rules: {
     'react/react-in-jsx-scope': 'off',
     '@typescript-eslint/no-unused-vars': 'warn',
+    'prettier/prettier': 'error',
   },
-} 
+};
