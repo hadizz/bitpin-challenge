@@ -1,3 +1,33 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Add these custom styles */
+/* .status-footer-enter {
+  transform: translateY(100%);
+}
+
+.status-footer-enter-active {
+  transform: translateY(0);
+  transition: transform 200ms ease-out;
+}
+
+.status-footer-exit {
+  transform: translateY(0);
+}
+
+.status-footer-exit-active {
+  transform: translateY(100%);
+  transition: transform 200ms ease-in;
+} */
+
+.app-header {
+  backdrop-filter: blur(8px);
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+@media (prefers-color-scheme: dark) {
+  .app-header {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+}
