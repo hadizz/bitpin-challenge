@@ -1,9 +1,10 @@
-import { Box, Container, Tab, Tabs, TextField } from '@mui/material';
+import { Box, Container, Tab, Tabs } from '@mui/material';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import Decimal from 'decimal.js';
 import { useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import LoadingCircle from '../../../components/LoadingCircle';
+import { PercentageField } from '../../../components/PercentageField';
 import { ServiceStatusFooter } from '../../../components/ServiceStatusFooter';
 import { useMarketDetail } from '../../../hooks/useMarketDetail';
 import useMarkets from '../../../hooks/useMarkets';
@@ -128,21 +129,18 @@ export default function MarketDetailPage() {
               <p className="text-sm">Total Value: {formatPrice(summary.totalValue)}</p>
               <p className="text-sm">Weighted Price: {formatPrice(summary.weightedPrice)}</p>
             </div>
-
             {calculatedOrders && (
               <div className="mt-4">
-                <TextField
-                  type="number"
+                <PercentageField
                   label="Percentage"
                   value={percentageValue}
-                  onChange={(e) =>
+                  onChange={(value) => {
                     setPercentage(
                       type === 'buy'
-                        ? { ...percentage, buy: Number(e.target.value) }
-                        : { ...percentage, sell: Number(e.target.value) }
-                    )
-                  }
-                  size="small"
+                        ? { ...percentage, buy: value }
+                        : { ...percentage, sell: value }
+                    );
+                  }}
                 />
                 <div className="mt-1 grid grid-cols-3 gap-4">
                   <p className="text-sm">
