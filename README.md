@@ -43,7 +43,7 @@ Features:
 
 todo list:
 
-- [ ] detail page summary
+- [x] detail page summary
 - [ ] change service from ir to org if network error
-- [ ] dark theme
+- [x] dark theme
 - [ ] swipe for changing tabs
