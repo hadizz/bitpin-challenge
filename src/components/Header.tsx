@@ -1,11 +1,15 @@
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import { AppBar, Box, Container, IconButton, Toolbar, Tooltip } from '@mui/material';
 import { Link, useLocation } from 'react-router-dom';
+import { useTheme } from '../contexts/ThemeContext';
 
 export function Header() {
   const location = useLocation();
   const isHome = location.pathname === '/';
+  const { mode, toggleTheme } = useTheme();
 
   return (
     <AppBar position="sticky" color="default" elevation={0} className="border-b">
@@ -38,6 +42,9 @@ export function Header() {
                   <GitHubIcon />
                 </IconButton>
               </Tooltip>
+              <IconButton onClick={toggleTheme} color="inherit">
+                {mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+              </IconButton>
             </div>
           </Box>
         </Toolbar>

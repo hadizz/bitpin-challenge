@@ -3,6 +3,7 @@ import { IconButton, Paper, Slide, Tooltip } from '@mui/material';
 import { UseQueryResult } from '@tanstack/react-query';
 import { useState } from 'react';
 import { twMerge } from 'tailwind-merge';
+import { useTheme } from '../contexts/ThemeContext';
 import { StatusDot } from './StatusDot';
 
 interface ServiceStatusFooterProps {
@@ -13,6 +14,7 @@ interface ServiceStatusFooterProps {
 
 export function ServiceStatusFooter({ buyOrders, sellOrders, trades }: ServiceStatusFooterProps) {
   const [isOpen, setIsOpen] = useState(true);
+  const { mode } = useTheme();
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50">
@@ -22,13 +24,17 @@ export function ServiceStatusFooter({ buyOrders, sellOrders, trades }: ServiceSt
           isOpen ? 'bottom-6 left-1' : 'bottom-2 left-1'
         )}
       >
-        <IconButton onClick={() => setIsOpen(!isOpen)} className="!bg-white shadow-lg" size="small">
+        <IconButton
+          onClick={() => setIsOpen(!isOpen)}
+          className={`shadow-lg ${mode === 'dark' ? '!bg-[#1e1e1e]' : '!bg-white'}`}
+          size="small"
+        >
           {isOpen ? <KeyboardArrowDown /> : <Wifi />}
         </IconButton>
       </div>
 
       <Slide direction="up" in={isOpen} mountOnEnter unmountOnExit>
-        <Paper elevation={3} className="p-3 bg-white border-t">
+        <Paper elevation={3} className="p-3 border-t">
           <div className="container mx-auto flex items-center justify-between">
             <div className="flex items-center gap-4">
               <Tooltip
