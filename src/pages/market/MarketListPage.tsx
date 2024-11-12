@@ -1,8 +1,9 @@
 import { Box, Container, Paper, Tab, Tabs } from '@mui/material';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import Decimal from 'decimal.js';
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSwipeable } from 'react-swipeable';
 import useMarkets from '../../hooks/useMarkets';
 import { Market } from '../../models/market.dto';
 import { formatPrice, formatVolume } from '../../utils/numbers';
@@ -11,6 +12,44 @@ export default function MarketListPage() {
   const navigate = useNavigate();
   const [tab, setTab] = useState(0);
   const { data: markets, isLoading } = useMarkets();
+  const swipeStartRef = useRef<{ x: number; y: number } | null>(null);
+  const isSwipingRef = useRef(false);
+
+  const handlers = useSwipeable({
+    onSwipeStart: (event) => {
+      // Store initial touch position
+      swipeStartRef.current = { x: event.initial[0], y: event.initial[1] };
+    },
+    onSwiping: (event) => {
+      if (!swipeStartRef.current) return;
+
+      const deltaX = Math.abs(event.deltaX);
+      const deltaY = Math.abs(event.deltaY);
+
+      if (deltaX > deltaY && deltaX > 400) {
+        isSwipingRef.current = true;
+      }
+    },
+    onSwipedLeft: () => {
+      if (isSwipingRef.current && tab === 0) {
+        setTab(1);
+      }
+      isSwipingRef.current = false;
+      swipeStartRef.current = null;
+    },
+    onSwipedRight: () => {
+      if (isSwipingRef.current && tab === 1) {
+        setTab(0);
+      }
+      isSwipingRef.current = false;
+      swipeStartRef.current = null;
+    },
+    preventScrollOnSwipe: true,
+    trackMouse: false,
+    trackTouch: true,
+    delta: 400,
+    swipeDuration: 500,
+  });
 
   const filteredMarkets =
     markets?.results?.filter((m) =>
@@ -101,32 +140,37 @@ export default function MarketListPage() {
   }, []);
 
   return (
-    <Container maxWidth="xl" className="p-6">
-      <Box p={3}>
+    <Container maxWidth="xl" className="p-1">
+      <Box p={1} {...handlers}>
         <Paper sx={{ mb: 2 }}>
-          <Tabs value={tab} onChange={(_, value) => setTab(value)} centered>
+          <Tabs value={tab} onChange={(_, value) => setTab(value)} centered variant="fullWidth">
             <Tab label="IRT Markets" />
             <Tab label="USDT Markets" />
           </Tabs>
         </Paper>
 
-        <DataGrid
-          rows={filteredMarkets}
-          columns={columns}
-          loading={isLoading}
-          autoHeight
-          disableColumnMenu
-          disableRowSelectionOnClick
-          onRowClick={(params) => navigate(`/${params.row.id}`)}
-          initialState={{
-            pagination: { paginationModel: { pageSize: 10 } },
-            sorting: { sortModel: [{ field: 'volume', sort: 'desc' }] },
-          }}
-          sx={{
-            '& .MuiDataGrid-cell': { cursor: 'pointer' },
-            '& .MuiDataGrid-columnHeaders': { bgcolor: 'action.hover' },
-          }}
-        />
+        <div className="overflow-hidden">
+          <DataGrid
+            rows={filteredMarkets}
+            columns={columns}
+            loading={isLoading}
+            disableColumnMenu
+            disableRowSelectionOnClick
+            onRowClick={(params) => {
+              if (!isSwipingRef.current) {
+                navigate(`/${params.row.id}`);
+              }
+            }}
+            initialState={{
+              pagination: { paginationModel: { pageSize: 10 } },
+              sorting: { sortModel: [{ field: 'volume', sort: 'desc' }] },
+            }}
+            sx={{
+              '& .MuiDataGrid-cell': { cursor: 'pointer' },
+              '& .MuiDataGrid-columnHeaders': { bgcolor: 'action.hover' },
+            }}
+          />
+        </div>
       </Box>
     </Container>
   );
