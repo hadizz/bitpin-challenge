@@ -46,4 +46,11 @@ todo list:
 - [x] detail page summary
 - [ ] change service from ir to org if network error
 - [x] dark theme
+- [ ] search utility for list page
 - [ ] swipe for changing tabs
+
+not good with candle stick
+mobile design
+multiple layout for order sell and buy
+should select order sell or buy or trade list together
+swipe feature

@@ -6,6 +6,11 @@ export function calculateOrderSummary(orders: Order[]): OrderSummary {
 
   const totalValue = orders.reduce((sum, order) => sum.plus(order.value), new Decimal(0));
 
+  /**
+   * This code calculates the weighted average price of orders. It multiplies each order's price by
+   *  its remaining quantity (order.price * order.remain), sums these products, and then divides by
+   * the total remaining quantity (totalRemain). This gives more weight to orders with larger remaining quantities.
+   *  */
   const weightedPrice = orders
     .reduce((sum, order) => sum.plus(new Decimal(order.price).times(order.remain)), new Decimal(0))
     .dividedBy(totalRemain);

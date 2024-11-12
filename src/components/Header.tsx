@@ -12,26 +12,26 @@ export function Header() {
   const { mode, toggleTheme } = useTheme();
 
   return (
-    <AppBar position="sticky" color="default" elevation={0} className="border-b">
-      <Container maxWidth="xl">
-        <Toolbar disableGutters className="h-16">
-          <Box className="flex items-center justify-between w-full gap-4">
-            <div className="flex items-center gap-4">
+    <AppBar position="sticky" color="default" elevation={0} className="border-b !h-[40px]">
+      <Container maxWidth="xl" className="!h-[40px]">
+        <Toolbar disableGutters className="!min-h-[40px]">
+          <Box className="flex items-center justify-between w-full gap-2">
+            <div className="flex items-center gap-2">
               {!isHome && (
                 <Link to="/" className="text-inherit">
                   <IconButton size="small" color="inherit">
-                    <ArrowBackIcon />
+                    <ArrowBackIcon fontSize="small" />
                   </IconButton>
                 </Link>
               )}
 
-              <Link to="/" className="flex items-center gap-2 text-inherit no-underline">
-                <img src="/logo.svg" alt="BitTrade" className="h-8 w-8" />
-                <span className="text-xl font-semibold">BitTrade</span>
+              <Link to="/" className="flex items-center gap-1 text-inherit no-underline">
+                <img src="/logo.svg" alt="BitTrade" className="h-6 w-6" />
+                <span className="text-sm font-semibold">BitTrade</span>
               </Link>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1">
               <Tooltip title="View on GitHub">
                 <IconButton
                   href="https://github.com/hadizz/bitpin-challenge"
@@ -39,11 +39,15 @@ export function Header() {
                   rel="noopener noreferrer"
                   size="small"
                 >
-                  <GitHubIcon />
+                  <GitHubIcon fontSize="small" />
                 </IconButton>
               </Tooltip>
-              <IconButton onClick={toggleTheme} color="inherit">
-                {mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+              <IconButton onClick={toggleTheme} color="inherit" size="small">
+                {mode === 'dark' ? (
+                  <Brightness7Icon fontSize="small" />
+                ) : (
+                  <Brightness4Icon fontSize="small" />
+                )}
               </IconButton>
             </div>
           </Box>

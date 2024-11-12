@@ -9,20 +9,28 @@ export function formatPrice(price: string, decimals: number = 0): string {
   }
 }
 
-export function formatVolume(volume: string, currency: string): string {
+export function formatVolume(volume: string, currency: string, decimals: number = 2): string {
   try {
     const value = new Decimal(volume);
 
-    if (value.isZero()) return '0';
+    if (value.isZero()) return `0 ${currency}`;
 
     if (value.greaterThanOrEqualTo('1e9')) {
-      return `${value.dividedBy('1e9').toFixed(2)}B ${currency}`;
+      const a = value
+        .dividedBy('1e9')
+        .toFixed(decimals)
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      return `${a}B ${currency}`;
     }
     if (value.greaterThanOrEqualTo('1e6')) {
-      return `${value.dividedBy('1e6').toFixed(2)}M ${currency}`;
+      const a = value
+        .dividedBy('1e6')
+        .toFixed(decimals)
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      return `${a}M ${currency}`;
     }
 
-    return `${value.toFixed(2)} ${currency}`;
+    return `${value.toFixed(decimals).replace(/\B(?=(\d{3})+(?!\d))/g, ',')} ${currency}`;
   } catch {
     return `0 ${currency}`;
   }
