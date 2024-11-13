@@ -1,7 +1,5 @@
 export async function GET(request) {
-  const url = new URL(request.url);
-  console.log(url);
-  const apiUrl = url.searchParams.get('query');
+  const apiUrl = new URL(request.query);
   console.log(apiUrl);
 
   if (!apiUrl) {
