@@ -89,7 +89,10 @@ export default function MarketDetailPage() {
             <LoadingCircle />
           ) : (
             <div className="flex-1 overflow-auto">
-              <Table columns={tradeColumns} data={trades.data?.slice(0, 10) ?? []} />
+              <Table
+                columns={tradeColumns}
+                data={Array.isArray(trades.data) ? trades.data.slice(0, 10) : []}
+              />
             </div>
           )}
         </Box>
@@ -113,7 +116,7 @@ export default function MarketDetailPage() {
     }
 
     if (loading) return <LoadingCircle />;
-    if (!list || list.length === 0) return null;
+    if (!list || !Array.isArray(list) || list.length === 0) return null;
 
     const slicedList = list.slice(0, 10);
     const summary = calculateOrderSummary(slicedList as Order[]);
@@ -140,6 +143,11 @@ export default function MarketDetailPage() {
         list = sellOrders?.data?.orders ?? [];
         break;
     }
+
+    if (!Array.isArray(list)) {
+      list = [];
+    }
+
     const slicedList = list.slice(0, 10);
     const percentageValue = tab === 'buy' ? percentage.buy : percentage.sell;
     const calculatedOrders = calculateOrdersByPercentage(slicedList as Order[], percentageValue);

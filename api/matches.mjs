@@ -3,8 +3,10 @@ async function getBitpinApiUrl(apiUrl) {
   return res.json();
 }
 
-export async function GET() {
-  const targetUrl = `https://api.bitpin.ir/v1/mkt/markets/`;
+export async function GET(request) {
+  const url = new URL(request.url);
+  const marketId = url.searchParams.get('id');
+  const targetUrl = `https://api.bitpin.org/v1/mth/matches/${marketId}/`;
 
   const data = await getBitpinApiUrl(targetUrl);
 
