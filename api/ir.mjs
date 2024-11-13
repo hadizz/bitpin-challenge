@@ -1,9 +1,22 @@
 export async function GET(request) {
   const url = new URL(request.url);
-  const targetUrl = `https://api.bitpin.ir${url.pathname.replace('/api/ir', '')}${url.search}`;
+  console.log(url);
+  const apiUrl = url.searchParams.get('query');
+  console.log(apiUrl);
+
+  if (!apiUrl) {
+    return new Response(JSON.stringify({ error: 'Missing url parameter' }), {
+      status: 400,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  }
+
+  const targetUrl = `https://api.bitpin.ir/${apiUrl}`;
 
   const response = await fetch(targetUrl, {
-    method: request.method,
+    method: 'GET',
     headers: request.headers,
   });
 
