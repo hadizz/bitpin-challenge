@@ -26,9 +26,11 @@ export function GET(request) {
   const startTime = performance.now();
 
   let data;
-  waitUntil(getBitpinApiUrl(targetUrl)).then((res) => {
-    data = res;
-  });
+  waitUntil(
+    getBitpinApiUrl(targetUrl).then((res) => {
+      data = res;
+    })
+  );
   const endTime = performance.now();
   const timeSpent = endTime - startTime;
 
