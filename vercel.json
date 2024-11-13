@@ -6,7 +6,10 @@
     }
   ],
   "functions": {
-    "api/ir.mjs": {
+    "api/actives.mjs": {
+      "maxDuration": 60
+    },
+    "api/markets.mjs": {
       "maxDuration": 60
     }
   }
