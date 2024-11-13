@@ -28,7 +28,7 @@ export default function MarketListPage() {
       const deltaX = Math.abs(event.deltaX);
       const deltaY = Math.abs(event.deltaY);
 
-      if (deltaX > deltaY && deltaX > 400) {
+      if (deltaX > deltaY && deltaX > 50) {
         isSwipingRef.current = true;
       }
     },
@@ -49,7 +49,7 @@ export default function MarketListPage() {
     preventScrollOnSwipe: true,
     trackMouse: false,
     trackTouch: true,
-    delta: 400,
+    delta: 50,
     swipeDuration: 500,
   });
 
