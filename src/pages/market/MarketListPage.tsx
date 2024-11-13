@@ -12,6 +12,8 @@ export default function MarketListPage() {
   const navigate = useNavigate();
   const [tab, setTab] = useState(0);
   const { data: markets, isLoading } = useMarkets();
+  console.log('comp', markets, isLoading);
+
   const swipeStartRef = useRef<{ x: number; y: number } | null>(null);
   const isSwipingRef = useRef(false);
 

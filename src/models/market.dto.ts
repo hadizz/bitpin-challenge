@@ -4,6 +4,7 @@ export interface Currency {
   title_fa: string;
   code: string;
   image: string;
+  color: string;
 }
 
 export interface PriceInfo {

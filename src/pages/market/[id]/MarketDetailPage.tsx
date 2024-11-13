@@ -1,5 +1,5 @@
-import { Box, Container, Slider, Tab, Tabs } from '@mui/material';
-import Decimal from 'decimal.js';
+import MarketInfo from '@/components/MarketInfo';
+import { Box, Container, Skeleton, Slider, Tab, Tabs } from '@mui/material';
 import { useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import LoadingCircle from '../../../components/LoadingCircle';
@@ -18,11 +18,11 @@ export default function MarketDetailPage() {
     buy: 100,
     sell: 100,
   });
-  const { data: markets } = useMarkets();
+  const { data: markets, isLoading: marketsLoading } = useMarkets();
   const market = markets?.results?.find((m) => m.id === Number(marketId));
   const { buyOrders, sellOrders, trades } = useMarketDetail(marketId!);
   const [tab, setTab] = useState<'sell' | 'buy'>('sell');
-  const marketBasedCurrencyCode = market?.currency2?.code;
+  const marketBasedCurrencyCode = market?.currency2?.code ?? '';
 
   const orderColumns = useMemo(() => {
     const arr: Column[] = [
@@ -122,13 +122,9 @@ export default function MarketDetailPage() {
       <section aria-label="Order List">
         <Table data={slicedList} columns={columns} type={type} />
         <div className="mt-1 grid grid-cols-3 gap-1 dark:bg-gray-800 bg-gray-100">
-          <p className="text-xs p-1">
-            {formatVolume(summary.totalRemain, marketBasedCurrencyCode)}
-          </p>
+          <p className="text-xs p-1">{formatVolume(summary.totalRemain, '')}</p>
           <p className="text-xs p-1">{formatPrice(summary.totalValue)}</p>
-          <p className="text-xs p-1">
-            {formatPrice(summary.weightedPrice)} {marketBasedCurrencyCode}
-          </p>
+          <p className="text-xs p-1">{formatPrice(summary.weightedPrice)}</p>
         </div>
       </section>
     );
@@ -188,21 +184,23 @@ export default function MarketDetailPage() {
         {slicedList.length > 0 && (
           <div className="flex flex-col gap-1 mt-4 text-center">
             <div className="flex gap-1">
-              <div className="flex-1 p-2 rounded bg-gray-100 dark:bg-gray-900">
-                <p className="text-xs">Selected Amount</p>
+              <div className="w-1/3 p-2 rounded bg-gray-100 dark:bg-gray-900">
+                <p className="text-xs">Amount</p>
                 <p className="text-base">{formatVolume(calculatedOrders.totalRemain, '')}</p>
               </div>
-              <div className="flex-1 p-2 rounded bg-gray-100 dark:bg-gray-900">
+              <div className="w-2/3 p-2 rounded bg-gray-100 dark:bg-gray-900">
                 <p className="text-xs">Average Price</p>
                 <p className="text-base">
-                  {formatPrice(calculatedOrders.weightedPrice)} {marketBasedCurrencyCode}
+                  {formatPrice(calculatedOrders.weightedPrice)}{' '}
+                  <span className="text-xs">{marketBasedCurrencyCode}</span>
                 </p>
               </div>
             </div>
             <div className="p-2 rounded bg-gray-100 dark:bg-gray-900">
               <p className="text-xs">Total Cost</p>
               <p className="text-base">
-                {formatPrice(calculatedOrders.totalValue)} {marketBasedCurrencyCode}
+                {formatPrice(calculatedOrders.totalValue)}{' '}
+                <span className="text-xs">{marketBasedCurrencyCode}</span>
               </p>
             </div>
           </div>
@@ -211,60 +209,16 @@ export default function MarketDetailPage() {
     );
   };
 
+  const renderMarketInfo = () => {
+    if (marketsLoading) return <Skeleton variant="rectangular" height={56} />;
+    if (!market) return null;
+    return <MarketInfo market={market} />;
+  };
+
   return (
     <>
       <Container maxWidth="xl" className="p-6 pb-20">
-        {market && (
-          <div className="mb-6 grid grid-cols-4 gap-4 w-full">
-            <div className="flex items-center gap-3">
-              <img
-                src={market.currency1.image}
-                className="w-8 h-8 rounded-full"
-                alt={market.currency1.code}
-              />
-              <div>
-                <h1 className="text-xl font-medium flex items-center gap-2">
-                  {market.currency1.title} /{' '}
-                  {market.currency2.code === 'IRT' ? (
-                    '🇮🇷'
-                  ) : (
-                    <img src="tether.svg" alt="Tether" className="w-6 h-6" />
-                  )}{' '}
-                  {market.currency2.code} Market
-                </h1>
-                <p className="text-sm text-gray-500">
-                  {market.currency1.code} / {market.currency2.code}
-                </p>
-              </div>
-            </div>
-            <div>
-              <p className="text-sm text-gray-500">Price</p>
-              <p className="text-lg font-medium">
-                {formatPrice(market.price)} {market.currency2.code}
-              </p>
-            </div>
-            <div>
-              <p className="text-sm text-gray-500 !mb-1">24h Change</p>
-              <span
-                className={`px-2 py-1 text-sm rounded-full ${
-                  (market.price_info?.change ?? 0) >= 0
-                    ? 'bg-green-100 text-green-800'
-                    : 'bg-red-100 text-red-800'
-                }`}
-              >
-                {(market.price_info?.change ?? 0) >= 0 ? '+' : ''}
-                {new Decimal(market.price_info?.change ?? 0).toFixed(2)}%
-              </span>
-            </div>
-            <div>
-              <p className="text-sm text-gray-500">24h Volume</p>
-              <p className="text-lg font-medium">
-                {formatVolume(market.volume_24h, market.currency2.code)}
-              </p>
-            </div>
-          </div>
-        )}
-
+        {renderMarketInfo()}
         <div className="mt-4 flex flex-col lg:flex-row gap-4 h-full">
           <div className="w-full lg:flex-1 flex flex-col">{renderTrade()}</div>
           <div className="w-full flex lg:flex-1 flex-col lg:flex-row gap-3">

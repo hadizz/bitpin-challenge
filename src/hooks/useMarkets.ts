@@ -1,19 +1,23 @@
+import axios from '@/services/axios';
+import { Market } from '@models/market.dto';
 import { useQuery } from '@tanstack/react-query';
-import { Market } from '../models/market.dto';
-
+import config from '@utils/config';
 interface MarketsResponse {
   results: Market[];
 }
 
-const fetchMarkets = async (): Promise<MarketsResponse> => {
-  const response = await fetch('https://api.bitpin.org/v1/mkt/markets/');
-  return response.json();
+const urls = {
+  markets: 'v1/mkt/markets/',
 };
 
 const useMarkets = () => {
   return useQuery<MarketsResponse>({
     queryKey: ['markets'],
-    queryFn: () => fetchMarkets(),
+    queryFn: async () => {
+      const { data } = await axios.get(config.baseUrlIr + urls.markets);
+      return data;
+    },
+    retry: true,
   });
 };
 
