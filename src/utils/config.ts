@@ -1,9 +1,6 @@
-const isDevelopment = import.meta.env.MODE === 'development';
-console.log('isDevelopment', isDevelopment);
-
 const config = {
-  baseUrlIr: '/api/',
-  baseUrlOrg: '/api-org/',
+  baseUrlIr: import.meta.env.VITE_BASE_URL_IR,
+  baseUrlOrg: import.meta.env.VITE_BASE_URL_ORG,
 };
 
 export default config;
