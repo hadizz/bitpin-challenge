@@ -4,15 +4,11 @@ async function getBitpinApiUrl(apiUrl) {
 }
 
 export async function GET(request) {
-  const targetUrl = 'https://api.bitpin.org/v2/mth/actives/1/?type=sell';
-  const startTime = performance.now();
+  const url = new URL(request.url);
+  const type = url.searchParams.get('type');
+  const targetUrl = 'https://api.bitpin.org/v2/mth/actives/1/?type=' + type;
 
   const data = await getBitpinApiUrl(targetUrl);
-  console.log('data', data);
-
-  const endTime = performance.now();
-  const timeSpent = endTime - startTime;
-  console.log(`API call took ${timeSpent}ms`);
 
   return new Response(JSON.stringify({ data }), {
     headers: {
