@@ -17,7 +17,7 @@ export function useMarketDetail(marketId: string) {
   const buyOrders = useQuery<MarketActivesResponse>({
     queryKey: ['buyOrders', marketId],
     queryFn: async () => {
-      const response = await axios.get(baseUrl + urls.buyOrders(marketId));
+      const response = await axios.get('https://bitpin-challenge.vercel.app/api/actives?type=buy');
       return response.data;
     },
     refetchInterval: 3000,
@@ -26,7 +26,7 @@ export function useMarketDetail(marketId: string) {
   const sellOrders = useQuery<MarketActivesResponse>({
     queryKey: ['sellOrders', marketId],
     queryFn: async () => {
-      const response = await axios.get(baseUrl + urls.sellOrders(marketId));
+      const response = await axios.get('https://bitpin-challenge.vercel.app/api/actives?type=sell');
       return response.data;
     },
     refetchInterval: 3000,
@@ -35,7 +35,9 @@ export function useMarketDetail(marketId: string) {
   const trades = useQuery<Trade[]>({
     queryKey: ['trades', marketId],
     queryFn: async () => {
-      const response = await axios.get(baseUrl + urls.trades(marketId));
+      const response = await axios.get(
+        'https://bitpin-challenge.vercel.app/api/matches?id=' + marketId
+      );
       return response.data;
     },
     refetchInterval: 3000,
