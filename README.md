@@ -1,5 +1,11 @@
 # Bitpin Challenge / BitTrade
 
+## Run on local
+
+```bash
+npm run dev
+```
+
 steps of task implementataion:
 
 ## Choose UI library: `MUI` or `antd`

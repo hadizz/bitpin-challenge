@@ -1,8 +1,16 @@
 {
   "rewrites": [
     {
-      "source": "/api/:match*",
-      "destination": "https://api.bitpin.ir/:match*"
+      "source": "/api/:path*",
+      "destination": "/api/proxy"
+    },
+    {
+      "source": "/api-org/:path*",
+      "destination": "/api/proxy"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
