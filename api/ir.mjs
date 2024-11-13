@@ -15,6 +15,8 @@ export async function GET(request) {
 
   const targetUrl = `https://api.bitpin.ir/${apiUrl}`;
 
+  const startTime = performance.now();
+
   const response = await fetch(targetUrl, {
     method: 'GET',
     headers: request.headers,
@@ -22,7 +24,13 @@ export async function GET(request) {
 
   const data = await response.json();
 
-  return new Response(JSON.stringify(data), {
+  const endTime = performance.now();
+  const timeSpent = endTime - startTime;
+
+  console.log('data', data);
+  console.log(`API call took ${timeSpent}ms`);
+
+  return new Response(JSON.stringify({ data }), {
     headers: {
       'Content-Type': 'application/json',
     },
