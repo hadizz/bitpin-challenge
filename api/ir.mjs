@@ -18,7 +18,7 @@ export async function GET(request) {
 
   const startTime = performance.now();
 
-  const response = await fetch(targetUrl, {
+  const response = await fetch('https://jsonplaceholder.typicode.com/todos/1', {
     method: 'GET',
     headers: request.headers,
   });
