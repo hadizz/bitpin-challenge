@@ -28,6 +28,7 @@ export function GET(request) {
   let data;
   waitUntil(
     getBitpinApiUrl(targetUrl).then((res) => {
+      console.log('result of the waitUntil:', res);
       data = res;
     })
   );
