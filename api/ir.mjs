@@ -1,3 +1,10 @@
+import { waitUntil } from '@vercel/functions';
+
+async function getBitpinApiUrl(apiUrl) {
+  const res = await fetch(`https://api.bitpin.ir/${apiUrl}`);
+  return res.json();
+}
+
 export async function GET(request) {
   const url = new URL(request.url);
   const apiUrl = url.searchParams.get('url');
@@ -18,10 +25,7 @@ export async function GET(request) {
 
   const startTime = performance.now();
 
-  const response = await fetch('https://jsonplaceholder.typicode.com/todos/1', {
-    method: 'GET',
-    headers: request.headers,
-  });
+  const response = await waitUntil(targetUrl);
 
   let data;
   console.log('response', response);
