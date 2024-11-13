@@ -20,16 +20,8 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      '/api': {
-        target: 'https://api.bitpin.ir',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ''),
-      },
-      '/api-org': {
-        target: 'https://api.bitpin.org',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api-org/, ''),
-      },
+      '/api': 'https://api.bitpin.ir',
+      '/api-org': 'https://api.bitpin.org',
     },
   },
 });
