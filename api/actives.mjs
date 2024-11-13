@@ -10,7 +10,7 @@ export async function GET(request) {
 
   const data = await getBitpinApiUrl(targetUrl);
 
-  return new Response(JSON.stringify({ data }), {
+  return new Response(JSON.stringify(data), {
     headers: {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*',
