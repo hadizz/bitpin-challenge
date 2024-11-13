@@ -4,5 +4,10 @@
       "source": "/(.*)",
       "destination": "/index.html"
     }
-  ]
+  ],
+  "functions": {
+    "api/ir.mjs": {
+      "maxDuration": 60
+    }
+  }
 }
