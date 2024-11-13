@@ -20,8 +20,8 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      '/api': 'https://api.bitpin.ir',
-      '/api-org': 'https://api.bitpin.org',
+      '/api/': 'https://api.bitpin.ir/',
+      '/api-org/': 'https://api.bitpin.org/',
     },
   },
 });
