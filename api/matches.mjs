@@ -13,19 +13,7 @@ export async function GET() {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'GET, OPTIONS, POST',
-      'Access-Control-Allow-Headers': 'Content-Type, Authorization, Accept',
-      'Cache-Control': 'no-cache, no-store, must-revalidate',
-    },
-  });
-}
-
-export async function OPTIONS() {
-  return new Response(null, {
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, OPTIONS, POST',
-      'Access-Control-Allow-Headers': 'Content-Type, Authorization, Accept',
-      'Cache-Control': 'no-cache, no-store, must-revalidate',
+      'Access-Control-Allow-Headers': 'Content-Type',
     },
   });
 }
