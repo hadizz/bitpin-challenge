@@ -1,23 +1,19 @@
 import { MarketActivesResponse } from '@/models/market-service.dto';
 import { Trade } from '@/models/market.dto';
 import axios from '@/services/axios';
-import config from '@/utils/config';
 import { useQuery } from '@tanstack/react-query';
 
-const baseUrl = config.baseUrlIr;
-console.log(baseUrl);
-
 const urls = {
-  buyOrders: (id: string) => `v2/mth/actives/${id}/?type=buy`,
-  sellOrders: (id: string) => `v2/mth/actives/${id}/?type=sell`,
-  trades: (id: string) => `v1/mth/matches/${id}/`,
+  buyOrders: (id: string) => `/api/actives?id=${id}&type=buy`,
+  sellOrders: (id: string) => `/api/actives?id=${id}&type=sell`,
+  trades: (id: string) => `/api/matches?id=${id}`,
 };
 
 export function useMarketDetail(marketId: string) {
   const buyOrders = useQuery<MarketActivesResponse>({
     queryKey: ['buyOrders', marketId],
     queryFn: async () => {
-      const response = await axios.get('https://bitpin-challenge.vercel.app/api/actives?type=buy');
+      const response = await axios.get(urls.buyOrders(marketId));
       return response.data;
     },
     refetchInterval: 3000,
@@ -26,7 +22,7 @@ export function useMarketDetail(marketId: string) {
   const sellOrders = useQuery<MarketActivesResponse>({
     queryKey: ['sellOrders', marketId],
     queryFn: async () => {
-      const response = await axios.get('https://bitpin-challenge.vercel.app/api/actives?type=sell');
+      const response = await axios.get(urls.sellOrders(marketId));
       return response.data;
     },
     refetchInterval: 3000,
@@ -35,9 +31,7 @@ export function useMarketDetail(marketId: string) {
   const trades = useQuery<Trade[]>({
     queryKey: ['trades', marketId],
     queryFn: async () => {
-      const response = await axios.get(
-        'https://bitpin-challenge.vercel.app/api/matches?id=' + marketId
-      );
+      const response = await axios.get(urls.trades(marketId));
       return response.data;
     },
     refetchInterval: 3000,

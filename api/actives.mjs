@@ -6,7 +6,8 @@ async function getBitpinApiUrl(apiUrl) {
 export async function GET(request) {
   const url = new URL(request.url);
   const type = url.searchParams.get('type');
-  const targetUrl = 'https://api.bitpin.org/v2/mth/actives/1/?type=' + type;
+  const id = url.searchParams.get('id');
+  const targetUrl = `https://api.bitpin.org/v2/mth/actives/${id}/?type=${type}`;
 
   const data = await getBitpinApiUrl(targetUrl);
 
