@@ -11,6 +11,9 @@
     },
     "api/markets.mjs": {
       "maxDuration": 60
+    },
+    "api/matches.mjs": {
+      "maxDuration": 60
     }
   }
 }
