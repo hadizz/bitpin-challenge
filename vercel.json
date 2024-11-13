@@ -7,10 +7,6 @@
     {
       "source": "/api-org/:path*",
       "destination": "https://api.bitpin.org/:path*"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
     }
   ],
   "headers": [
