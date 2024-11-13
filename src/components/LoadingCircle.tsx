@@ -1,8 +1,9 @@
 import { CircularProgress } from '@mui/material';
+import { twMerge } from 'tailwind-merge';
 
-const LoadingCircle = () => {
+const LoadingCircle = ({ className = '' }: { className?: string }) => {
   return (
-    <div className="flex justify-center items-center h-full">
+    <div className={twMerge('flex justify-center items-center h-full', className)}>
       <CircularProgress />
     </div>
   );

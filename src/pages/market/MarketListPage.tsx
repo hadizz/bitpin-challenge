@@ -1,3 +1,4 @@
+import LoadingCircle from '@/components/LoadingCircle';
 import useMarkets from '@/hooks/useMarkets';
 import { Market } from '@/models/market.dto';
 import { formatPrice, formatVolume } from '@/utils/numbers';
@@ -144,33 +145,52 @@ export default function MarketListPage() {
     <Container maxWidth="xl" className="p-1">
       <Box p={1} {...handlers}>
         <Paper sx={{ mb: 2 }}>
-          <Tabs value={tab} onChange={(_, value) => setTab(value)} centered variant="fullWidth">
-            <Tab label="IRT Markets" />
-            <Tab label="USDT Markets" />
+          <Tabs
+            value={tab}
+            onChange={(_, value) => setTab(value)}
+            centered
+            aria-label="Currency Markets List"
+          >
+            <Tab
+              icon={<img src="/ir-bit.svg" alt="IRT" width={20} height={20} />}
+              label="IRT Markets"
+            />
+            <Tab
+              icon={<img src="/tether-bit.svg" alt="USDT" width={20} height={20} />}
+              label="USDT Markets"
+            />
           </Tabs>
         </Paper>
 
         <div className="overflow-hidden">
-          <DataGrid
-            rows={filteredMarkets}
-            columns={columns}
-            loading={isLoading}
-            disableColumnMenu
-            disableRowSelectionOnClick
-            onRowClick={(params) => {
-              if (!isSwipingRef.current) {
-                navigate(`/${params.row.id}`);
-              }
-            }}
-            initialState={{
-              pagination: { paginationModel: { pageSize: 10 } },
-              sorting: { sortModel: [{ field: 'volume', sort: 'desc' }] },
-            }}
-            sx={{
-              '& .MuiDataGrid-cell': { cursor: 'pointer' },
-              '& .MuiDataGrid-columnHeaders': { bgcolor: 'action.hover' },
-            }}
-          />
+          {isLoading ? (
+            <div className="flex flex-col items-center justify-center h-full">
+              <LoadingCircle className="mt-16" />
+              <div className="text-sm dark:text-white text-gray-500 mt-4">
+                Loading list of markets, please wait...
+              </div>
+            </div>
+          ) : (
+            <DataGrid
+              rows={filteredMarkets}
+              columns={columns}
+              disableColumnMenu
+              disableRowSelectionOnClick
+              onRowClick={(params) => {
+                if (!isSwipingRef.current) {
+                  navigate(`/${params.row.id}`);
+                }
+              }}
+              initialState={{
+                pagination: { paginationModel: { pageSize: 10 } },
+                sorting: { sortModel: [{ field: 'volume', sort: 'desc' }] },
+              }}
+              sx={{
+                '& .MuiDataGrid-cell': { cursor: 'pointer' },
+                '& .MuiDataGrid-columnHeaders': { bgcolor: 'action.hover' },
+              }}
+            />
+          )}
         </div>
       </Box>
     </Container>
