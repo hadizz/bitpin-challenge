@@ -5,7 +5,7 @@ async function getBitpinApiUrl(apiUrl) {
   return res.json();
 }
 
-export function GET(request) {
+export async function GET(request) {
   const targetUrl = 'https://api.bitpin.org/v2/mth/actives/1/?type=buy';
   const startTime = performance.now();
 
