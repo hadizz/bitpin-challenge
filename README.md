@@ -17,7 +17,6 @@ Bundle Size Comparison
 `Material-UI (MUI)`
 
 - Core package (@mui/material): ~300KB (minified + gzipped)
-- Data grid (@mui/x-data-grid): ~93.5kb (minified + gzipped)
 - Emotion dependencies: ~15KB
 
 `Ant Design (antd)`
@@ -29,6 +28,7 @@ Bundle Size Comparison
 Features:
 
 - `MUI` has better table component rather than antd.
+- built-in dark mode and light mode config with the help of createTheme.
 - reach and various features for the future developing.
 - easy implemntaion and better docs with biolerpaltes.
 

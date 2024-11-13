@@ -1,5 +1,5 @@
 import '@/providers/theme-types';
-import { PaletteMode, alpha } from '@mui/material';
+import { PaletteMode } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
 
 export const getTheme = (mode: PaletteMode) => {
@@ -29,25 +29,6 @@ export const getTheme = (mode: PaletteMode) => {
           root: {
             backgroundColor: mode === 'light' ? '#ffffff' : '#1e1e1e',
             borderBottom: `1px solid ${mode === 'light' ? '#e0e0e0' : '#333333'}`,
-          },
-        },
-      },
-      // Apply styles through CSS classes instead of direct component overrides
-      MuiCssBaseline: {
-        styleOverrides: {
-          '.MuiDataGrid-root': {
-            backgroundColor: mode === 'light' ? '#ffffff' : '#1e1e1e',
-            borderColor: mode === 'light' ? '#e0e0e0' : '#333333',
-            '& .MuiDataGrid-cell': {
-              borderColor: mode === 'light' ? '#e0e0e0' : '#333333',
-            },
-            '& .MuiDataGrid-columnHeaders': {
-              backgroundColor: mode === 'light' ? alpha('#000', 0.02) : alpha('#fff', 0.02),
-              borderColor: mode === 'light' ? '#e0e0e0' : '#333333',
-            },
-            '& .MuiDataGrid-row:hover': {
-              backgroundColor: mode === 'light' ? alpha('#000', 0.04) : alpha('#fff', 0.04),
-            },
           },
         },
       },
