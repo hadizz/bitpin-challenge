@@ -3,10 +3,8 @@ async function getBitpinApiUrl(apiUrl) {
   return res.json();
 }
 
-export async function GET(request) {
-  const url = new URL(request.url);
-  const id = url.searchParams.get('id');
-  const targetUrl = `https://api.bitpin.org/v1/mth/matches/${id}/`;
+export async function GET() {
+  const targetUrl = `https://api.bitpin.ir/v1/mkt/markets/`;
 
   const data = await getBitpinApiUrl(targetUrl);
 
@@ -14,8 +12,20 @@ export async function GET(request) {
     headers: {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type',
+      'Access-Control-Allow-Methods': 'GET, OPTIONS, POST',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization, Accept',
+      'Cache-Control': 'no-cache, no-store, must-revalidate',
+    },
+  });
+}
+
+export async function OPTIONS() {
+  return new Response(null, {
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, OPTIONS, POST',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization, Accept',
+      'Cache-Control': 'no-cache, no-store, must-revalidate',
     },
   });
 }
