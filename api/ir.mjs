@@ -7,7 +7,7 @@ async function getBitpinApiUrl(apiUrl) {
   return res;
 }
 
-export async function GET(request) {
+export function GET(request) {
   const url = new URL(request.url);
   const apiUrl = url.searchParams.get('url');
   console.log('url', url);
@@ -27,22 +27,10 @@ export async function GET(request) {
 
   const startTime = performance.now();
 
-  const response = await waitUntil(getBitpinApiUrl(targetUrl));
-
   let data;
-  console.log('response', response);
-  try {
-    data = await response.json();
-  } catch (error) {
-    console.error('Failed to parse JSON:', error);
-    return new Response(JSON.stringify({ error: 'Invalid JSON response from API' }), {
-      status: 502,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-  }
-
+  waitUntil(getBitpinApiUrl(targetUrl)).then((res) => {
+    data = res;
+  });
   const endTime = performance.now();
   const timeSpent = endTime - startTime;
 
