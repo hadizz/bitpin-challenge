@@ -4,7 +4,7 @@ import axios from '@/services/axios';
 import config from '@/utils/config';
 import { useQuery } from '@tanstack/react-query';
 
-const baseUrl = config.baseUrlOrg;
+const baseUrl = config.baseUrlIr;
 
 const urls = {
   buyOrders: (id: string) => `v2/mth/actives/${id}/?type=buy`,

@@ -18,4 +18,18 @@ export default defineConfig({
       '@providers': path.resolve(__dirname, './src/providers'),
     },
   },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'https://api.bitpin.ir',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+      '/api-org': {
+        target: 'https://api.bitpin.org',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api-org/, ''),
+      },
+    },
+  },
 });
