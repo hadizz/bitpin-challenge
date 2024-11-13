@@ -2,9 +2,7 @@ import { waitUntil } from '@vercel/functions';
 
 async function getBitpinApiUrl(apiUrl) {
   const res = await fetch(apiUrl);
-  const data = await res.json();
-  console.log('getBitpinApiUrl data:', data);
-  return res;
+  return res.json();
 }
 
 export function GET(request) {
