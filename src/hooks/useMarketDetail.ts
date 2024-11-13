@@ -5,6 +5,7 @@ import config from '@/utils/config';
 import { useQuery } from '@tanstack/react-query';
 
 const baseUrl = config.baseUrlIr;
+console.log(baseUrl);
 
 const urls = {
   buyOrders: (id: string) => `v2/mth/actives/${id}/?type=buy`,
