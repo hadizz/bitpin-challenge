@@ -1,6 +1,8 @@
 export async function GET(request) {
   const url = new URL(request.url);
   const apiUrl = url.searchParams.get('url');
+  console.log('url', url);
+  console.log('apiUrl', apiUrl);
 
   if (!apiUrl) {
     return new Response(JSON.stringify({ error: 'Missing url parameter' }), {
