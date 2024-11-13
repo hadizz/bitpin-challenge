@@ -88,7 +88,6 @@ export default function MarketListPage() {
             />
           </Tabs>
         </Paper>
-
         <div className="overflow-hidden">
           {isLoading ? (
             <div className="flex flex-col items-center justify-center h-full">

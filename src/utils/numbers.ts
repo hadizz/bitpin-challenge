@@ -16,21 +16,19 @@ export function formatVolume(volume: string, currency: string, decimals: number 
     if (value.isZero()) return `0 ${currency}`;
 
     if (value.greaterThanOrEqualTo('1e9')) {
-      const a = value
-        .dividedBy('1e9')
-        .toFixed(decimals)
-        .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-      return `${a}B ${currency}`;
+      const a = decimals === 0 ? value.dividedBy('1e9') : value.dividedBy('1e9').toFixed(decimals);
+      return `${a.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}B ${currency}`;
     }
     if (value.greaterThanOrEqualTo('1e6')) {
-      const a = value
-        .dividedBy('1e6')
-        .toFixed(decimals)
-        .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-      return `${a}M ${currency}`;
+      const a = decimals === 0 ? value.dividedBy('1e6') : value.dividedBy('1e6').toFixed(decimals);
+      return `${a.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}M ${currency}`;
     }
 
-    return `${value.toFixed(decimals).replace(/\B(?=(\d{3})+(?!\d))/g, ',')} ${currency}`;
+    const formattedValue = decimals === 0 ? value.toString() : value.toFixed(decimals);
+    const [integerPart, decimalPart] = formattedValue.split('.');
+    const formattedInteger = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    const result = decimalPart ? `${formattedInteger}.${decimalPart}` : formattedInteger;
+    return `${result} ${currency}`;
   } catch {
     return `0 ${currency}`;
   }

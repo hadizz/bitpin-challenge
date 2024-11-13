@@ -70,14 +70,14 @@ export default function MarketDetailPage() {
   const renderTrade = () => {
     return (
       <>
-        <div className="mb-4 h-[300px]">
+        <div className="mb-4 h-[300px] min-h-[300px]">
           {trades.isLoading ? <LoadingCircle /> : trades.data && <TradeChart data={trades.data} />}
         </div>
         <Box
           sx={{
             display: 'flex',
             flex: '1',
-            flexDirection: { xs: 'row', lg: 'column' },
+            flexDirection: 'column',
             gap: 2,
             p: 2,
             borderRadius: 1,
@@ -153,13 +153,13 @@ export default function MarketDetailPage() {
     const calculatedOrders = calculateOrdersByPercentage(slicedList as Order[], percentageValue);
 
     return (
-      <section aria-label="Orde Book">
+      <section aria-label="Order Book" className="w-full">
         <Tabs value={tab} onChange={(_, val) => setTab(val)} centered>
           <Tab value="sell" label="Sell" />
           <Tab value="buy" label="Buy" />
         </Tabs>
         <Box height={24} />
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-1 px-2">
           <PercentageField
             label="Percentage"
             value={percentage[tab]}
@@ -225,35 +225,41 @@ export default function MarketDetailPage() {
 
   return (
     <>
-      <Container maxWidth="xl" className="p-6 pb-20">
-        {renderMarketInfo()}
+      <Container maxWidth="xl" className="p-4 pb-20 sm:p-6">
+        <div className="w-full overflow-x-auto">{renderMarketInfo()}</div>
         <div className="mt-4 flex flex-col lg:flex-row gap-4 h-full">
           <div className="w-full lg:flex-1 flex flex-col">{renderTrade()}</div>
-          <div className="w-full flex lg:flex-1 flex-col lg:flex-row gap-3">
+          <div className="w-full flex flex-col lg:flex-1 lg:flex-row gap-3">
             <Box
               sx={{
                 display: 'flex',
                 flex: '1',
-                flexDirection: { xs: 'row', lg: 'column' },
+                flexDirection: 'column',
                 gap: 2,
                 p: 2,
                 borderRadius: 1,
                 bgcolor: 'background.paper',
+                width: '100%',
+                minWidth: 0,
               }}
             >
               <h4 className="!mb-0">Order List</h4>
-              {renderOrderTable('buy')}
-              {renderOrderTable('sell')}
+              <div className="flex flex-col gap-3 overflow-x-auto">
+                {renderOrderTable('buy')}
+                {renderOrderTable('sell')}
+              </div>
             </Box>
             <Box
               sx={{
                 display: 'flex',
-                flexDirection: { xs: 'row', lg: 'column' },
+                flexDirection: 'column',
                 flex: '1',
                 gap: 2,
                 p: 2,
                 borderRadius: 1,
                 bgcolor: 'background.paper',
+                width: '100%',
+                minWidth: 0,
               }}
             >
               {renderOrderBook()}
