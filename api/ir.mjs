@@ -14,6 +14,7 @@ export async function GET(request) {
   }
 
   const targetUrl = `https://api.bitpin.ir/${apiUrl}`;
+  console.log('targetUrl', targetUrl);
 
   const startTime = performance.now();
 
@@ -22,7 +23,19 @@ export async function GET(request) {
     headers: request.headers,
   });
 
-  const data = await response.json();
+  let data;
+  console.log('response', response);
+  try {
+    data = await response.json();
+  } catch (error) {
+    console.error('Failed to parse JSON:', error);
+    return new Response(JSON.stringify({ error: 'Invalid JSON response from API' }), {
+      status: 502,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  }
 
   const endTime = performance.now();
   const timeSpent = endTime - startTime;
