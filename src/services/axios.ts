@@ -1,3 +1,4 @@
+import config from '@/utils/config';
 import axios from 'axios';
 
 /**
@@ -14,6 +15,6 @@ import axios from 'axios';
  * - Doesn't add extra headers
  * - Avoids preflight for simple GET requests
  */
-const axiosInstance = axios.create({ withCredentials: false });
+const axiosInstance = axios.create({ baseURL: config.baseUrl, withCredentials: false });
 
 export default axiosInstance;

@@ -6,6 +6,8 @@
 npm run dev
 ```
 
+Note: to fixing cors error I've added api route in vercel serverless functions. to run on your local you need to call `https://bitpin-challenge.vercel.app` which is already configed on code.
+
 steps of task implementataion:
 
 ## Choose UI library: `MUI` or `antd`
@@ -49,14 +51,9 @@ Features:
 
 todo list:
 
+- [x] cors
 - [x] detail page summary
-- [ ] change service from ir to org if network error
+- [x] change service from ir to org if network error
 - [x] dark theme
-- [ ] search utility for list page
-- [ ] swipe for changing tabs
-
-not good with candle stick
-mobile design
-multiple layout for order sell and buy
-should select order sell or buy or trade list together
-swipe feature
+- [x] search utility for list page
+- [x] swipe for changing tabs
