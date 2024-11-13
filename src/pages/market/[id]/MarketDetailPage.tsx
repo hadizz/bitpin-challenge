@@ -1,16 +1,16 @@
+import LoadingCircle from '@/components/LoadingCircle';
 import MarketInfo from '@/components/MarketInfo';
+import { PercentageField } from '@/components/PercentageField';
+import Table, { Column } from '@/components/Table';
+import { TradeChart } from '@/components/TradeChart';
+import { useMarketDetail } from '@/hooks/useMarketDetail';
+import useMarkets from '@/hooks/useMarkets';
+import { Order } from '@/models/market.dto';
+import { formatPrice, formatVolume } from '@/utils/numbers';
+import { calculateOrdersByPercentage, calculateOrderSummary } from '@/utils/orderbook';
 import { Box, Container, Skeleton, Slider, Tab, Tabs } from '@mui/material';
 import { useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import LoadingCircle from '../../../components/LoadingCircle';
-import { PercentageField } from '../../../components/PercentageField';
-import Table, { Column } from '../../../components/Table';
-import { TradeChart } from '../../../components/TradeChart';
-import { useMarketDetail } from '../../../hooks/useMarketDetail';
-import useMarkets from '../../../hooks/useMarkets';
-import { Order } from '../../../models/market.dto';
-import { formatPrice, formatVolume } from '../../../utils/numbers';
-import { calculateOrdersByPercentage, calculateOrderSummary } from '../../../utils/orderbook';
 
 export default function MarketDetailPage() {
   const { marketId } = useParams();

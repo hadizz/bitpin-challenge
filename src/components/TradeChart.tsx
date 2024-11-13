@@ -1,7 +1,7 @@
+import { useTheme } from '@/contexts/ThemeContext';
+import { Trade } from '@/models/market.dto';
 import { ColorType, createChart, IChartApi, UTCTimestamp } from 'lightweight-charts';
 import { useEffect, useMemo, useRef } from 'react';
-import { useTheme } from '../contexts/ThemeContext';
-import { Trade } from '../models/market.dto';
 
 interface ChartProps {
   data: Trade[];

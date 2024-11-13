@@ -1,18 +1,17 @@
+import useMarkets from '@/hooks/useMarkets';
+import { Market } from '@/models/market.dto';
+import { formatPrice, formatVolume } from '@/utils/numbers';
 import { Box, Container, Paper, Tab, Tabs } from '@mui/material';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import Decimal from 'decimal.js';
 import { useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSwipeable } from 'react-swipeable';
-import useMarkets from '../../hooks/useMarkets';
-import { Market } from '../../models/market.dto';
-import { formatPrice, formatVolume } from '../../utils/numbers';
 
 export default function MarketListPage() {
   const navigate = useNavigate();
   const [tab, setTab] = useState(0);
   const { data: markets, isLoading } = useMarkets();
-  console.log('comp', markets, isLoading);
 
   const swipeStartRef = useRef<{ x: number; y: number } | null>(null);
   const isSwipingRef = useRef(false);

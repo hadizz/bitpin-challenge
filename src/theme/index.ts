@@ -1,6 +1,6 @@
+import '@/providers/theme-types';
 import { PaletteMode, alpha } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
-import '../providers/theme-types';
 
 export const getTheme = (mode: PaletteMode) => {
   return createTheme({

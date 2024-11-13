@@ -1,5 +1,5 @@
+import { Order, OrderSummary } from '@/models/market.dto';
 import Decimal from 'decimal.js';
-import { Order, OrderSummary } from '../models/market.dto';
 
 export function calculateOrderSummary(orders: Order[]): OrderSummary {
   const totalRemain = orders.reduce((sum, order) => sum.plus(order.remain), new Decimal(0));

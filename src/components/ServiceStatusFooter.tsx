@@ -1,10 +1,10 @@
+import { StatusDot } from '@/components/StatusDot';
+import { useTheme } from '@/contexts/ThemeContext';
 import { KeyboardArrowDown, Wifi } from '@mui/icons-material';
 import { IconButton, Paper, Slide, Tooltip } from '@mui/material';
 import { UseQueryResult } from '@tanstack/react-query';
 import { useState } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { useTheme } from '../contexts/ThemeContext';
-import { StatusDot } from './StatusDot';
 
 interface ServiceStatusFooterProps {
   buyOrders: UseQueryResult;
